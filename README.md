@@ -21,3 +21,10 @@ cargo run filepath
 ```shell
 cargo run test/rv32ui-p-add
 ```
+
+- [ ] Error test/rv32ui-p-lb
+- [ ] Error test/rv32ui-p-lbu
+- [ ] Error test/rv32ui-p-lh
+- [ ] Error test/rv32ui-p-lhu
+- [ ] Error test/rv32ui-p-sb
+- [ ] Error test/rv32ui-p-sh
