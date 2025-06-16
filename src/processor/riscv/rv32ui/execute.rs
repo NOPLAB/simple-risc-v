@@ -37,7 +37,14 @@ pub struct Execute();
 impl Execute {
     pub fn execute(&self, decode: DecodeResult, pc: u32) -> Result<ExecuteResult, ProcessorError> {
         let alu_out: u32 = match decode.opcode {
+            Opcode::LB => (decode.rs1_data as i32 + decode.imm_i_sext) as u32,
+            Opcode::LBU => (decode.rs1_data as i32 + decode.imm_i_sext) as u32,
+            Opcode::LH => (decode.rs1_data as i32 + decode.imm_i_sext) as u32,
+            Opcode::LHU => (decode.rs1_data as i32 + decode.imm_i_sext) as u32,
             Opcode::LW => (decode.rs1_data as i32 + decode.imm_i_sext) as u32,
+
+            Opcode::SB => (decode.rs1_data as i32 + decode.imm_s_sext) as u32,
+            Opcode::SH => (decode.rs1_data as i32 + decode.imm_s_sext) as u32,
             Opcode::SW => (decode.rs1_data as i32 + decode.imm_s_sext) as u32,
 
             Opcode::ADD => decode.rs1_data.wrapping_add(decode.rs2_data),

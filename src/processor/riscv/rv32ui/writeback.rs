@@ -57,7 +57,26 @@ impl Writeback {
         }
 
         match decode.opcode {
+            Opcode::LB => {
+                let byte_val = bus.read8(execute.alu_out)? as i8 as i32 as u32;
+                xregs.write(decode.rd, byte_val);
+            },
+            Opcode::LBU => {
+                let byte_val = bus.read8(execute.alu_out)? as u32;
+                xregs.write(decode.rd, byte_val);
+            },
+            Opcode::LH => {
+                let half_val = bus.read16(execute.alu_out)? as i16 as i32 as u32;
+                xregs.write(decode.rd, half_val);
+            },
+            Opcode::LHU => {
+                let half_val = bus.read16(execute.alu_out)? as u32;
+                xregs.write(decode.rd, half_val);
+            },
             Opcode::LW => xregs.write(decode.rd, bus.read32(execute.alu_out)?),
+
+            Opcode::SB => bus.write8(execute.alu_out, decode.rs2_data as u8)?,
+            Opcode::SH => bus.write16(execute.alu_out, decode.rs2_data as u16)?,
             Opcode::SW => bus.write32(execute.alu_out, decode.rs2_data)?,
 
             Opcode::BEQ => (),
